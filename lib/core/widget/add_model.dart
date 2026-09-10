@@ -68,9 +68,10 @@ class _AddContactSheetState extends State<AddContactSheet> {
                       ValueListenableBuilder(
                         valueListenable: nameCtrl,
                         builder: (context, value, child) {
+                          
                           value.text.isEmpty ? 'user name' : value.text;
 
-                          
+
                         },
                       ),
                     ],
