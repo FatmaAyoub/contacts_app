@@ -4,25 +4,3 @@ flutter_native_splash:
   image: assets/images/Group6.png
   android: true
   ios: true
-
-
-# flutter_native_splash:
-#   color: "#29384D"
-#   image: assets/images/Group6.png
-
-#   branding_mode: bottom
-#   android_12:
-#     image: assets/images/Group6.png
-#     color: "#29384D"
-   
-#   android: true
-#   ios: true
-
-
-
-  # flutter_native_splash:
-  # color: "#29384D"
-  # image: assets/images/Group6.png
-
-  # android: true
-  # ios: true

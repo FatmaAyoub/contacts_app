@@ -1,4 +1,5 @@
 import 'package:contacts_app/core/widget/add_model.dart';
+import 'package:contacts_app/core/widget/card.dart';
 import 'package:contacts_app/core/widget/custom_flot.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_app/core/utils/color/color.dart';
@@ -14,9 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Contact> contacts = [
-    Contact(name: "Fatma", phoneNumber: "01221993579", email: "Fatma@gmail.com")
-  ];
+  List<Contact> contacts = [];
 
   @override
   Widget build(BuildContext context) {
@@ -33,35 +32,58 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: contacts.isEmpty
           ? const PlaceWidget()
-          : GridView.builder(
-            itemCount: contacts.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                itemCount: contacts.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: 0.57,
+                ),
 
-              itemBuilder: (context, index) {
-                return Text(contacts[index].name);
-              },
+                itemBuilder: (context, index) {
+                  return ContactCard(
+                    contactModel: contacts[index],
+                    deleteContact: () {
+                      deletIndex(index);
+                    },
+                  );
+                },
+              ),
             ),
       floatingActionButton: CustomFloat(
         showAddContact: showAdd,
         deleteContact: deletcontact,
+        isAdd: contacts.length < 6,
+        isDelete: contacts.isNotEmpty,
       ),
     );
   }
 
   void showAdd() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
 
       builder: (context) {
-        return AddContactSheet();
+        return AddContactSheet(
+          contacts: contacts,
+          onContantAdd: () {
+            setState(() {});
+          },
+        );
       },
     );
   }
 
   void deletcontact() {
     contacts.removeLast();
+    setState(() {});
+  }
+
+  void deletIndex(int index) {
+    contacts.removeAt(index);
     setState(() {});
   }
 }
